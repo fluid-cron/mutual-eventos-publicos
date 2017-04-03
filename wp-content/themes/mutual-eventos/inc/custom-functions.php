@@ -6,128 +6,50 @@ function guardarInscripcion() {
 
 	global $wpdb;
 
-	$email = sanitize_text_field($_POST["email"]);
-	$evento = sanitize_text_field($_POST["evento"]);
+	$email       = sanitize_text_field($_POST["email"]);
+	$evento      = sanitize_text_field($_POST["evento"]);
+	$nombre      = sanitize_text_field($_POST["nombre"]);
+	$rut         = sanitize_text_field($_POST["rut"]);
+	$telefono    = sanitize_text_field($_POST["telefono"]);
+	$becado      = sanitize_text_field($_POST["becado"]);
+	$procedencia = sanitize_text_field($_POST["procedencia"]);
 
-	$query = "SELECT email FROM {$wpdb->prefix}usuarios_mutual WHERE email='$email' AND evento='$evento'";
+	$query = "SELECT email FROM {$wpdb->prefix}inscripcion_eventos WHERE email='$email' AND evento='$evento'";
 	$result = $wpdb->get_results($query);
 
 	$usuario_mutual = count($result);
 
-	if( $usuario_mutual>0 ) {
+	if( $usuario_mutual>0 ) {	
 
-		//echo "existe en la base de mutual puede inscribirse";
-
-		$query = "SELECT email FROM {$wpdb->prefix}inscripcion_eventos WHERE email='$email' AND evento='$evento'";
-		$result = $wpdb->get_results($query);
-
-		$usuario_inscripcion = count($result);
-
-		if( $usuario_inscripcion==0 ) {
-
-			//echo "se puede inscribir a evento";
-
-			if( $email!="" && $evento!="" ) {
-
-				$qr = generarQR($email,$evento);
-
-				if( $qr!="error" ) {
-
-					$query = "SELECT * FROM {$wpdb->prefix}usuarios_mutual WHERE email='$email' AND evento='$evento'";
-					$result = $wpdb->get_row($query);					
-					
-					$wpdb->insert(
-						$wpdb->prefix.'inscripcion_eventos',
-						array(
-							'nombre'   => $result->nombre,
-							'cargo'    => $result->cargo,
-							'empresa'  => $result->empresa,
-							'email'    => $email,
-							'telefono' => $result->telefono,
-							'evento'   => $evento,
-							'qr'       => $qr
-						),
-						array(
-							'%s',
-							'%s',
-							'%s',
-							'%s',
-							'%s',
-							'%s',
-							'%s'
-						)
-					);
-
-					$args = array(
-						'post_type'	=> 'eventos',
-						'name'		=> $evento
-					);
-					$the_query = new WP_Query( $args );
-
-					if( $the_query->have_posts() ):
-						while( $the_query->have_posts() ) : $the_query->the_post();
-							$nombre_evento = get_the_title();
-							$banner = get_field("header_email");
-						endwhile;
-					endif;								
-
-					$url = get_template_directory_uri().'/mail/';
-
-					$body    = file_get_contents(get_template_directory_uri().'/mail/index.html');
-					$body    = str_replace("[EVENTO]",$nombre_evento,$body);
-					$body    = str_replace("[NOMBRE]",$result->nombre,$body);
-					$body    = str_replace("[URL]",$url,$body);
-					$body    = str_replace("[BANNER]",$banner,$body);
-					$body    = str_replace("[QR]",get_template_directory_uri()."/temp/qr/".$qr,$body);
-					$headers = array('Content-Type: text/html; charset=UTF-8');
-
-					$mailResult = false;
-					$mailResult = wp_mail($email,'Inscripción al evento '.$nombre_evento, $body ,$headers);					
-
-					if( $mailResult ) {
-						$mailResult = "ok";
-					}else{
-						$mailResult = "error";
-					}
-
-					$wpdb->insert(
-						$wpdb->prefix.'log_mail',
-						array(
-							'nombre'      => $result->nombre,
-							'evento'      => $nombre_evento,
-							'evento_slug' => $evento,
-							'email'       => $email,
-							'banner'      => $banner,
-							'estado'      => $mailResult,
-							'qr'          => get_template_directory_uri()."/temp/qr/".$qr						),
-						array(
-							'%s',
-							'%s',
-							'%s',
-							'%s',
-							'%s',
-							'%s',
-							'%s'
-						)
-					);					
-
-					echo 1;
-				}else{
-					echo 0;
-				}			
-
-			}else{
-				echo 0;
-			}
-
-		}else{
-			//echo "ya esta inscrito a el evento";
-			echo 2;
-		}
+		//ya esta registrado
+		echo 2;
 
 	}else{
-		//echo "No existe en la base de mutual, no puede inscribirse";
-		echo 3;
+
+		$wpdb->insert(
+			$wpdb->prefix.'inscripcion_eventos',
+			array(
+				'email'       => $email,				
+				'evento'      => $evento,				
+				'nombre'      => $nombre,				
+				'telefono'    => $telefono,				
+				'rut'         => $rut,				
+				'becado'      => $becado,				
+				'procedencia' => $procedencia			
+			),
+			array(
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s'
+			)
+		);	
+
+		echo 1;	
+
 	}
 
 	die;

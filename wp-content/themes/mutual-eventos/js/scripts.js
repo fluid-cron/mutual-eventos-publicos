@@ -33,48 +33,35 @@ jQuery(document).ready(function(jQuery) {
         },
         submitHandler:function() {
 
-            jQuery("input").prop('disabled', true);
+            //jQuery("input").prop('disabled', true);
             jQuery(".btn-enviar").css("opacity",".2");
             jQuery(".btn-enviar").css("cursor","default");
 
             if( status_form_evento==0 ) {
 
-                status_form_evento = 1;
-                //jQuery("#form-eventos").hide();                    
-                jQuery("#gracias-inscrito").fadeIn();
-                jQuery("#form-eventos")[0].reset();
-                jQuery(".btn-enviar").css("opacity","1");
-                jQuery(".btn-enviar").css("cursor","pointer");                
-                jQuery("input").prop('disabled', false);
-                /*
+                status_form_evento = 1;            
+                
                 jQuery.post(ajax.url,jQuery("#form-eventos").serialize(),function(data) {
                     if( data==1 ) {
                     	//alert("inscrito con éxito");
-                        jQuery("#form-eventos").hide();                    
+                        jQuery(".caja-asistir").hide();
                         jQuery("#gracias-inscrito").fadeIn();
-                    }else if( data==0 ) {
-                        jQuery(".caja-asistir").show();
-                    	//alert("error, intente nuevamente");
-                        jQuery("#form-eventos").hide();
-                        jQuery("#gracias-error").fadeIn();
-                        status_form_evento = 0;
+                        jQuery("#form-eventos")[0].reset();
+                        jQuery(".btn-enviar").css("opacity","1");
+                        jQuery(".btn-enviar").css("cursor","pointer");                
+                        //jQuery("input").prop('disabled', false);
                     }else if( data==2 ) {
-                        //alert("ya está inscrito en el evento");
-                        jQuery("#form-eventos").hide();
-                        jQuery("#gracias-inscrito").hide();
-                        jQuery("#gracias-ya-inscrito").fadeIn();                    
-                    }else if( data==3 ) {
-                        //alert("no existe en la base de mutual, no puede inscribirse para este evento");
-                        jQuery("#form-eventos").hide();
-                        jQuery("#gracias-no-mutual").fadeIn(); 
-                        status_form_evento = 0;                   
-                    }                    
-                });
-                */
+                        alert("ya está inscrito en el evento");
+                        //jQuery("#form-eventos").hide();
+                        //jQuery("#gracias-inscrito").hide();
+                        //jQuery("#gracias-ya-inscrito").fadeIn();                    
+                    }
+                });                
 
             }
             
         }
+
     });
 
     jQuery(".btn-enviar").click(function() {

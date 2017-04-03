@@ -72,13 +72,13 @@ $page_links = paginate_links( array(
     //'add_args' => array( 'q' => $q )
 ));
 
-$tipos = "";
 $args = array(
     'post_type' => 'eventos',
     'orderby'   => 'date',
 	'order'     => 'DESC'
 );
 $query = new WP_Query($args);
+
 $c = 0;
 if( $query->have_posts() ){
 	while( $query->have_posts() ) {

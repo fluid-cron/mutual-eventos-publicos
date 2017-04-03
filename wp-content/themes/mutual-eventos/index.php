@@ -8,21 +8,13 @@
 		$estado = 2;
 	}else{
 
-		$email  = sanitize_text_field(@$_GET["email"]);
 		$evento = sanitize_text_field(@$_GET["evento"]);
-		$estado = -1;
 
-		if( $email!="" && $evento!="") {
-			if( estaInscrito($email,$evento)==0 ) {
-				$estado = 0;
-			}else{
-				//echo "ya esta inscrito en el evento";
-				$estado = 1;
-			}
-	   }else{
-		   	//echo "No puedes inscribitre al evento";
-		   	$estado = 3;
-	   }
+		if( $evento!="") {
+			$estado = 0;
+		}else{
+			$estado = 3;
+		}
 
 	}	
 
