@@ -4,6 +4,7 @@ add_action( 'wp_enqueue_scripts', 'script_enqueue' );
 
 function script_enqueue() {
    wp_register_script( "validate_script", get_template_directory_uri().'/js/jquery.validate.js');
+   wp_register_script( "rut_script", get_template_directory_uri().'/js/jquery.Rut.min.js');
    wp_register_script( "events_script", get_template_directory_uri().'/js/scripts.js');
    wp_localize_script( 'events_script', 'ajax', array( 'url' => admin_url( 'admin-ajax.php' ))); 
    wp_register_script( "events_bootstrap", get_template_directory_uri().'/assets/js/bootstrap.min.js');
@@ -11,6 +12,7 @@ function script_enqueue() {
 
    wp_enqueue_script( 'jquery' );
    wp_enqueue_script( 'validate_script' );
+   wp_enqueue_script( 'rut_script' );
    wp_enqueue_script( 'events_bootstrap' );
    wp_enqueue_script( 'events_slick' );
    wp_enqueue_script( 'events_script' );

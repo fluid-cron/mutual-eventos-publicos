@@ -57,7 +57,7 @@ if($posts) {
 						<img src="<?php echo $banner; ?>"/>
 					</div>
 				</div>
-				<?php if( $estado==2 || $evento_activo==0 ){ ?>
+				<?php if( $estado==2 || $evento_activo==0 ) { ?>
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="titulo"><?php echo strtoupper($nombre_evento); ?></h3>
@@ -70,8 +70,46 @@ if($posts) {
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="titulo"><?php echo strtoupper($nombre_evento); ?></h3>
+<div class="row">								
+							</div>						
 						<div class="caja-asistir">
 							<h4 class="desea-asistir">¿Deseas asistir al Evento?</h4>
+							<br>
+<div class="col-md-3"></div>
+								<div class="col-md-6">							
+								<form method="post" id="form-eventos" >
+
+									<div class="form-group">										
+										<input type="text" class="form-control" name="nombre" placeholder="Nombre*" value="" maxlength="50" >		
+									</div>
+									<div class="form-group">										
+										<input type="text" class="form-control" name="rut" id="rut" placeholder="Rut*" value="" maxlength="12" >
+									</div>
+									<div class="form-group">										
+										<input type="text" class="form-control" name="email" placeholder="Email*" value="" maxlength="40" >
+									</div>
+									<div class="form-group">										
+										<input type="text" class="form-control" name="telefono" placeholder="Teléfono*" value="" maxlength="10" >
+									</div>															
+									<div class="form-group">										
+										<select name="becado" class="form-control">
+										  <option value="">Becado*</option>
+										  <option value="si">Sí</option>
+										  <option value="no">No</option>
+										</select>														
+									</div>			
+									<div class="form-group">										
+										<input type="text" class="form-control" name="procedencia" placeholder="Hospital/Clinica/Procedencia*" value="" maxlength="50" >
+									</div>																				  																								
+
+									<input type="hidden" name="evento" value="<?php echo $evento;?>" >
+									<input type="hidden" name="action" value="guardarInscripcion" >
+								  	<!--input type="button" class="btn-enviar" name="btn_enviar" value="Quiero ir!" -->
+
+								</form>
+								</div>
+								<div class="col-md-3"></div>
+
 							<button class="btn-asistir btn-enviar">Sí, asistiré al evento</button>
 						</div>
 					</div>
@@ -98,18 +136,11 @@ if($posts) {
 				<div class="alert alert-warning alert-dismissible" <?php if( $estado==1 ) { echo 'style="display: block;"'; }else{ echo 'style="display: none;"'; } ?> id="gracias-ya-inscrito" role="alert">					
 					<p>Ya ha sido enviada tu solicitud al evento.</p>
 				</div>		
-				<div class="alert alert-danger alert-dismissible" <?php if( $estado==3 ) { echo 'style="display: block;"'; }else{ echo 'style="display: none;"'; } ?> id="gracias-no-mutual" role="alert">
+				<!--div class="alert alert-danger alert-dismissible" <?php if( $estado==3 ) { echo 'style="display: block;"'; }else{ echo 'style="display: none;"'; } ?> id="gracias-no-mutual" role="alert">
 					<p>No puedes solicitar acceso a este evento.</p>
-				</div>
+				</div-->
 			</div>
 		</div>
-
-		<form method="post" id="form-eventos" style="display: none;" >
-		  <input type="text" name="email" placeholder="Email*" value="<?php echo $email;?>" >
-		  <input type="hidden" name="evento" value="<?php echo $evento;?>" >
-		  <input type="hidden" name="action" value="guardarInscripcion" >
-		  <!--input type="button" class="btn-enviar" name="btn_enviar" value="Quiero ir!" -->
-		</form>		
 
 	</section>
 

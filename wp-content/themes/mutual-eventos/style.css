@@ -1,13 +1,13 @@
 /*
-Theme Name: Mutual eventos
+Theme Name: Mutual eventos publicos
 Theme URI: http://www.cronstudio.com
 Author: Manuel Meriño
 Author URI: http://www.cronstudio.com
-Description: Tema personalizado para mutual eventos
+Description: Tema personalizado para mutual eventos publicos
 Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
-Text Domain: mutual-eventos
+Text Domain: mutual-eventos-publicos
 Tags:
 
 This theme, like WordPress, is licensed under the GPL.
@@ -35,4 +35,8 @@ ul.preguntas-calificacion {
 
 .alert-danger {
 	font-weight: bold;
+}
+
+.error { 
+    border: 1px solid red !important;
 }
